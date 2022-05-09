@@ -1,0 +1,15 @@
+<p>Super Category Color: <input id="category" type="color" value="#BB6BD9"></p>
+<p>Card Color: <input id="card" type="color" value="#EB5757"></p>
+
+<button id="create">Create</button>
+<script>
+
+document.getElementById('create').onclick = () => {
+  const categoryEl = document.getElementById('category');
+  const categoryBox = categoryEl.value
+  const cardEl = document.getElementById('card');
+  const cardBox = cardEl.value
+  parent.postMessage({ pluginMessage: { type: 'create-shapes', categoryBox, cardBox} }, '*')
+}
+
+</script>
