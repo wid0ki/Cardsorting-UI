@@ -2,7 +2,33 @@
 <p>Card Color: <input id="card" type="color" value="#EB5757"></p>
 
 <button id="create">Create</button>
+
 <script>
+onmessage = (event) => {
+  const {type, data} = event.data.pluginMessage
+  if (type == 'download') {
+    download('output.csv', data)
+  }
+}
+
+function download(filename, text) {
+  return new Promise(resolve => {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    setTimeout(() => {
+      document.body.removeChild(element);
+      resolve();
+    }, 600);
+
+  });
+}
 
 document.getElementById('create').onclick = () => {
   const categoryEl = document.getElementById('category');
